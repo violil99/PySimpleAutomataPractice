@@ -14,22 +14,22 @@ def generate_transition_diagram(states: set, alphabet: set, transitions: dict, s
 
   for i in states:
     if i in accepting_states:
-      dot.node(str(i),str(i),shape='doublecircle')
+      dot.node(str(i).replace("frozenset",""),str(i).replace("frozenset",""),shape='doublecircle')
     else:
-      dot.node(str(i),str(i))
+      dot.node(str(i).replace("frozenset",""),str(i).replace("frozenset",""))
 
   ###Just add pointers
   for i in states:
     for x in alphabet:
       if type(transitions[i][x]) == frozenset:
-        dot.edge(str(i),str(transitions[i][x]), label=x)
+        dot.edge(str(i).replace("frozenset",""),str(transitions[i][x]).replace("frozenset",""), label=x)
       else:
         for z in transitions[i][x]:
-          dot.edge(str(i), str(z), label=x)
+          dot.edge(str(i).replace("frozenset",""), str(z).replace("frozenset",""), label=x)
 
 
   dot.node('start', 'start', shape='point')
-  dot.edge('start', str(start_state), label="start")
+  dot.edge('start', str(start_state).replace("frozenset",""), label="start")
 
   dot.render('example_graph', format='png', cleanup=True)
 
@@ -119,8 +119,6 @@ def nfa_to_dfa(nfa_states, nfa_alphabet, nfa_transitions,nfa_start_state, nfa_ac
       if curr_transitions not in dfa_states:
         stack.append(curr_transitions)
 
-      print(len(dfa_start_state))
-
   
 
   return dfa_states, nfa_alphabet, dfa_transitions, str(frozenset(dfa_start_state)), dfa_accepting_states
@@ -145,7 +143,7 @@ for state in dfa_states:
     print(state)
 print("DFA Transitions:", dfa_transitions)
 
-generate_transition_diagram(dfa_states, dfa_alphabet, dfa_transitions, dfa_start_state, dfa_accepting_states)
+#generate_transition_diagram(dfa_states, dfa_alphabet, dfa_transitions, dfa_start_state, dfa_accepting_states)
 
   
 
