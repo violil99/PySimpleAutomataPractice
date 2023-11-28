@@ -14,22 +14,22 @@ def generate_transition_diagram(states: set, alphabet: set, transitions: dict, s
 
   for i in states:
     if i in accepting_states:
-      dot.node(str(i).replace("frozenset",""),str(i).replace("frozenset",""),shape='doublecircle')
+      dot.node(str(i).replace("frozenset","").replace("{","").replace("}","").replace("(","").replace(")",""),str(i).replace("frozenset","").replace("{","").replace("}","").replace("(","").replace(")",""),shape='doublecircle')
     else:
-      dot.node(str(i).replace("frozenset",""),str(i).replace("frozenset",""))
+      dot.node(str(i).replace("frozenset","").replace("{","").replace("}","").replace("(","").replace(")",""),str(i).replace("frozenset","").replace("{","").replace("}","").replace("(","").replace(")",""))
 
   ###Just add pointers
   for i in states:
     for x in alphabet:
       if type(transitions[i][x]) == frozenset:
-        dot.edge(str(i).replace("frozenset",""),str(transitions[i][x]).replace("frozenset",""), label=x)
+        dot.edge(str(i).replace("frozenset","").replace("{","").replace("}","").replace("(","").replace(")",""),str(transitions[i][x]).replace("frozenset","").replace("{","").replace("}","").replace("(","").replace(")",""), label=x)
       else:
         for z in transitions[i][x]:
-          dot.edge(str(i).replace("frozenset",""), str(z).replace("frozenset",""), label=x)
+          dot.edge(str(i).replace("frozenset","").replace("{","").replace("}","").replace("(","").replace(")",""), str(z).replace("frozenset","").replace("{","").replace("}","").replace("(","").replace(")",""), label=x)
 
 
   dot.node('start', 'start', shape='point')
-  dot.edge('start', str(start_state).replace("frozenset",""), label="start")
+  dot.edge('start', str(start_state).replace("frozenset","").replace("{","").replace("}","").replace("(","").replace(")",""), label="start")
 
   dot.render('example_graph', format='png', cleanup=True)
 
@@ -134,16 +134,26 @@ dfa_states, dfa_alphabet, dfa_transitions, dfa_start_state, dfa_accepting_states
     nfa_states, nfa_alphabet, nfa_transitions, nfa_start_state, nfa_accepting_states
 )
 
-print("DFA accepting:",dfa_accepting_states)
+print("\nDFA accepting states:")
+for state in dfa_accepting_states:
+  print(str(state).replace("frozenset","").replace("{","").replace("}","").replace("(","").replace(")",""))
 
+
+
+print("\nDFA states:")
 for state in dfa_states:
   if state in dfa_accepting_states:
-    print("**"+str(state))
+    print("**"+str(state).replace("frozenset","").replace("{","").replace("}","").replace("(","").replace(")",""))
+  elif str(state)==dfa_start_state:
+    print("-->"+str(state).replace("frozenset","").replace("{","").replace("}","").replace("(","").replace(")",""))
   else:
-    print(state)
-print("DFA Transitions:", dfa_transitions)
+    print(str(state).replace("frozenset","").replace("{","").replace("}","").replace("(","").replace(")",""))
+print("\nDFA Transitions:")
 
-#generate_transition_diagram(dfa_states, dfa_alphabet, dfa_transitions, dfa_start_state, dfa_accepting_states)
+for state in dfa_transitions:
+  print(str(dfa_transitions[state]).replace("frozenset","").replace("{","").replace("}","").replace("(","").replace(")","").replace("{","").replace("}","").replace("(","").replace(")",""))
+
+generate_transition_diagram(dfa_states, dfa_alphabet, dfa_transitions, dfa_start_state, dfa_accepting_states)
 
   
 
