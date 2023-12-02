@@ -53,30 +53,22 @@ def generate_transition_diagram(states: set, alphabet: set, transitions: dict, s
 
     
 #Input
-states = {'q1', 'q2', 'q3', 'q4','q5','q6','q7','q8','q9','q10','D','F'}
+states = {'q1', 'q2', 'q3', 'q4','q5','q6'}
 alphabet = {'a', 'b'}
 transitions = {
 
     ##q1 has seen 0 as, q6 has see 5
-    'q1': {'a': {'q2'}, 'b': {'D'}},
-    'q2': {'a': {'q3'}, 'b': {'q7'}},
-    'q3': {'a': {'q4'}, 'b': {'q9'}},
-    'q4': {'a': {'q5'}, 'b': {'q10'}},
-    'q5': {'a': {'q6'}, 'b': {'q10'}},
-    'q6': {'a': {'q6'}, 'b': {'F'}},
+    'q1': {'a': {'q2'}, 'b': {'q1'}},
+    'q2': {'a': {'q3'}, 'b': {'q2'}},
+    'q3': {'a': {'q4'}, 'b': {'q3'}},
+    'q4': {'a': set(), 'b': {'q5'}},
+    'q5': {'a': set(), 'b': {'q6'}},
+    'q6': {'a': set(), 'b': set()},
 
 
-    #q7 has seen 1 b
-    'q7': {'a': {'D'}, 'b': {'q8'}},
-    'q8': {'a': {'D'}, 'b': {'q9'}},
-    'q9': {'a': {'D'}, 'b': {'q10'}},
-    'q10': {'a': {'D'}, 'b': {'F'}},
-
-    'F': {'a': {'D'}, 'b': {'F'}},
-    'D': {'a': {'D'}, 'b': {'D'}},
 }
 start_state = 'q1'
-accepting_states = {'F'}
+accepting_states = {'q6'}
 
 #generating the transition diagram
 generate_transition_diagram(states, alphabet, transitions, start_state, accepting_states)
