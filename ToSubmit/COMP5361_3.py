@@ -74,9 +74,9 @@ generate_transition_diagram(states, alphabet, transitions, start_state, acceptin
 nfa_states = {'q0', 'q1', 'q2'}
 nfa_alphabet = {'0', '1'}
 nfa_transitions = {
-    'q0': {'0': {'q0', 'q1'}, '1': {'q0'}},
-    'q1': {'0': set(), '1': {'q2'}},
-    'q2': {'0': set(), '1': set()}
+    'q0': {'0': {'q0'}, '1': {'q1'}},
+    'q1': {'0': {'q1','q2'}, '1': {'q1'}},
+    'q2': {'0': {'q2'}, '1': {'q1','q2'}}
 }
 nfa_start_state = 'q0'
 nfa_accepting_states = {'q2'}
@@ -186,7 +186,7 @@ for state in dfa_transitions:
 
 
 '''Use this to generate the transition diagram for the dfa version'''
-#generate_transition_diagram(dfa_states, dfa_alphabet, dfa_transitions, dfa_start_state, dfa_accepting_states)
+generate_transition_diagram(dfa_states, dfa_alphabet, dfa_transitions, dfa_start_state, dfa_accepting_states)
 
   
 
