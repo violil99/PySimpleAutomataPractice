@@ -16,7 +16,7 @@ import graphviz
 def generate_transition_diagram(states: set, alphabet: set, transitions: dict, start_state: str, accepting_states: set):
 
   #setting up the digraph to output into example_graph.png
-  dot = Digraph('example_graph', format='png')
+  dot = Digraph('example_graph', format='png', graph_attr={'size': '20,20', 'dpi':'300'})
 
 
   #Creates nodes for every state, with a double circle around accepting states
@@ -53,15 +53,30 @@ def generate_transition_diagram(states: set, alphabet: set, transitions: dict, s
 
     
 #Input
-states = {'q0', 'q1', 'q2'}
-alphabet = {'0', '1'}
+states = {'q1', 'q2', 'q3', 'q4','q5','q6','q7','q8','q9','q10','D','F'}
+alphabet = {'a', 'b'}
 transitions = {
-    'q0': {'0': {'q0', 'q1'}, '1': {'q0'}},
-    'q1': {'0': set(), '1': {'q2'}},
-    'q2': {'0': set(), '1': set()}
+
+    ##q1 has seen 0 as, q6 has see 5
+    'q1': {'a': {'q2'}, 'b': {'D'}},
+    'q2': {'a': {'q3'}, 'b': {'q7'}},
+    'q3': {'a': {'q4'}, 'b': {'q9'}},
+    'q4': {'a': {'q5'}, 'b': {'q10'}},
+    'q5': {'a': {'q6'}, 'b': {'q10'}},
+    'q6': {'a': {'q6'}, 'b': {'F'}},
+
+
+    #q7 has seen 1 b
+    'q7': {'a': {'D'}, 'b': {'q8'}},
+    'q8': {'a': {'D'}, 'b': {'q9'}},
+    'q9': {'a': {'D'}, 'b': {'q10'}},
+    'q10': {'a': {'D'}, 'b': {'F'}},
+
+    'F': {'a': {'D'}, 'b': {'F'}},
+    'D': {'a': {'D'}, 'b': {'D'}},
 }
-start_state = 'q0'
-accepting_states = {'q2'}
+start_state = 'q1'
+accepting_states = {'F'}
 
 #generating the transition diagram
 generate_transition_diagram(states, alphabet, transitions, start_state, accepting_states)
