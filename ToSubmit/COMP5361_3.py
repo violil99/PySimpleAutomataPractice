@@ -53,15 +53,20 @@ def generate_transition_diagram(states: set, alphabet: set, transitions: dict, s
 
     
 #Input
-states = {'q0', 'q1', 'q2'}
-alphabet = {'0', '1'}
+states = {'A','B','C','D','E','F','G','H'}
+alphabet = {' '}
 transitions = {
-    'q0': {'0': {'q0', 'q1'}, '1': {'q0'}},
-    'q1': {'0': set(), '1': {'q2'}},
-    'q2': {'0': set(), '1': set()}
+    'A': {' ':{'B', 'C'}},
+    'B': {' ':{'C', 'D','A'}},
+    'C': {' ':{'A', 'D','F','E'}},
+    'D': {' ':{'A', 'H','E',}},
+    'E': {' ':{'F', 'G'}},
+    'F': {' ':{'D', 'H','G'}},
+    'G': {' ':{'E', 'H'}},
+    'H': {' ':{'A'}}
 }
-start_state = 'q0'
-accepting_states = {'q2'}
+start_state = 'A'
+#accepting_states = {'q2'}
 
 #generating the transition diagram
 generate_transition_diagram(states, alphabet, transitions, start_state, accepting_states)
